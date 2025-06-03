@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт Ильи!</title>
+    <style>
+        body {
+            font-family: "Tahoma", sans-serif;
+            background-image: url('img/bg.png'); 
+            background-color: #3A6EA5; 
+            background-repeat: no-repeat; 
+            background-size: cover;      
+            background-position: center center; 
+            background-attachment: fixed; 
+            color: #000000;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            min-height: 100vh;
+        }
+
+        .xp-window {
+            width: 600px; 
+            background-color: #ECE9D8; 
+            border: 1px solid #000; 
+            box-shadow: 3px 3px 0px #7F7F7F, 5px 5px 5px rgba(0,0,0,0.4); 
+        }
+
+        .xp-title-bar {
+            background: linear-gradient(to bottom, #0055E1, #003A9E); 
+            color: white;
+            padding: 3px 5px;
+            font-weight: bold;
+            display: flex; /* Всё еще flex, но теперь текст сам по себе */
+            justify-content: flex-start; /* Чтобы текст был слева, или center если надо по центру */
+            align-items: center;
+            height: 22px; 
+            border-bottom: 1px solid #000;
+            user-select: none; 
+        }
+
+        .xp-title-bar-text {
+            padding-left: 3px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            /* Теперь не нужно задавать width, он займет сколько надо */
+        }
+
+        /* Нафиг стили для .xp-window-controls, их больше нет! Удалены! */
+
+        .xp-tabs-container {
+            background-color: #ECE9D8;
+            padding: 5px 5px 0 5px;
+        }
+
+        .xp-tabs {
+            display: flex;
+        }
+
+        .xp-tab {
+            background-color: #D4D0C8;
+            border: 1px solid #ACA899;
+            border-top-color: #FFFFFF; 
+            border-left-color: #FFFFFF;
+            border-bottom: none;
+            padding: 5px 10px;
+            margin-right: 3px;
+            margin-bottom: -1px; 
+            cursor: pointer;
+            font-size: 11px;
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .xp-tab.active {
+            background-color: #F5F5F5; 
+            border-bottom: 1px solid #F5F5F5; 
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .xp-content-area {
+            background-color: #FFFFFF; 
+            padding: 15px;
+            border: 1px solid #ACA899;
+            border-top: none;
+            min-height: 250px; 
+            font-size: 12px;
+        }
+
+        .xp-content-pane {
+            display: none;
+        }
+
+        .xp-content-pane.active {
+            display: block;
+        }
+
+        .xp-content-pane h3 {
+            color: #003A9E;
+            margin-top: 0;
+            border-bottom: 1px solid #D4D0C8;
+            padding-bottom: 5px;
+        }
+        
+        .xp-content-pane ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .xp-content-pane li {
+            margin-bottom: 8px;
+        }
+        .xp-content-pane strong {
+            display: inline-block;
+            min-width: 100px; 
+            font-weight: normal; 
+            color: #555;
+        }
+
+        .avatar {
+            width: 100px;  
+            height: 100px; 
+            border: 1px solid #ACA899;
+            float: right;
+            margin-left: 15px;
+            margin-bottom: 15px;
+            background-color: black; 
+            object-fit: cover; 
+            color: transparent; 
+        }
+        img[src=""] { 
+             visibility: hidden;
+        }
+        img:not([src]), img[src=""] {
+             border: 1px solid #ccc; 
+        }
+
+
+        .copy-button {
+            font-size: 10px;
+            padding: 1px 4px;
+            margin-left: 8px;
+            cursor: pointer;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #FFFFFF #808080 #808080 #FFFFFF;
+            background-color: #ECE9D8;
+            box-shadow: 1px 1px 0px #7F7F7F;
+        }
+        .copy-button:active {
+            border-color: #808080 #FFFFFF #FFFFFF #808080;
+            box-shadow: none;
+            transform: translate(1px, 1px);
+        }
+         .status-bar {
+            background-color: #ECE9D8;
+            padding: 3px 5px;
+            font-size: 10px;
+            border-top: 1px solid #ACA899; 
+            border-top-color: #FFFFFF;
+            border-bottom: 1px solid #ACA899;
+            text-align: left;
+            height: 16px;
+            line-height:16px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="xp-window">
+    <div class="xp-title-bar">
+        <span class="xp-title-bar-text">Илюхин Домик™ (Ultimate)</span>
+        <!-- ВСЁ, КНОПОК НЕТ, ЗАБУДЬТЕ ПРО НИХ! -->
+    </div>
+    <div class="xp-tabs-container">
+        <div class="xp-tabs">
+            <div class="xp-tab active" onclick="openTab(event, 'about')">Кто такой Илья?</div>
+            <div class="xp-tab" onclick="openTab(event, 'authenticity')">Связь с космосом</div>
+            <div class="xp-tab" onclick="openTab(event, 'computer')">Моя Пекарня</div>
+        </div>
+    </div>
+
+    <div class="xp-content-area">
+        <div id="about" class="xp-content-pane active">
+            <h3>Про меня, любимого</h3>
+            <img src="img/avatar.png" alt="[Черный квадрат Малевича, если Илья не подсуетился с авой]" class="avatar">
+            <p><strong>Позывной:</strong> Илья</p>
+            <p><strong>Пробег (лет):</strong> 13</p>
+            <p><strong>Залипаю на:</strong> АйТишечку, Программирование (хакер малолетний, растет)</p>
+        </div>
+
+        <div id="authenticity" class="xp-content-pane">
+            <h3>Контакты для связи (если осмелишься)</h3>
+            <ul>
+                <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@uhhtyagi" target="_blank">Втыкай на мои видосы</a></li>
+                <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@lampasoladyami?_t=ZS-8wtbgqbdzdN&_r=1" target="_blank">Танцульки в TikTok</a></li>
+                <li>
+                    <strong>Telegram:</strong> <span id="telegram-id">kirpichdaa</span>
+                    <button class="copy-button" onclick="copyToClipboard('telegram-id', this)">Стырить ник</button>
+                </li>
+                <li>
+                    <strong>Discord:</strong> <span id="discord-id">n1k0c5ha</span>
+                    <button class="copy-button" onclick="copyToClipboard('discord-id', this)">Свистнуть и бежать</button>
+                </li>
+            </ul>
+        </div>
+
+        <div id="computer" class="xp-content-pane">
+            <h3>Моя Игровая (нет) Станция</h3>
+            <ul>
+                <li><strong>Мозг (CPU):</strong> AMD Ryzen 5 7530U (о, свежачок!)</li>
+                <li><strong>Глаза (GPU):</strong> Radeon Graphics (ну, хоть что-то)</li>
+                <li><strong>Память (RAM):</strong> 16 GB (уже можно браузер открывать)</li>
+                <li><strong>Склад (Disk):</strong> Micron_2400_MTFDKBA512QFM (на 512 гигов хлама)</li>
+            </ul>
+        </div>
+    </div>
+     <div class="status-bar">
+        <span style="border: 1px inset #7F7F7F; padding: 0 5px;">Мой компьютер</span>
+        <span style="float:right; border: 1px inset #7F7F7F; padding: 0 2px;">RU</span>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("xp-content-pane");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("xp-tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+        document.querySelector('.status-bar span:first-child').textContent = evt.currentTarget.textContent;
+    }
+
+    function copyToClipboard(elementId, button) {
+        const textToCopy = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            const originalText = button.innerText;
+            button.innerText = 'Украдено!';
+            button.style.borderColor = '#0f0 #808080 #808080 #0f0'; // Типа успех
+            setTimeout(function() {
+                button.innerText = originalText;
+                button.style.borderColor = '#FFFFFF #808080 #808080 #FFFFFF';
+            }, 1500);
+        }, function(err) {
+            console.error('Алярм! Копирование накрылось: ', err);
+            alert('Хьюстон, у нас проблемы с копированием! Попробуй ручками, ха-ха.');
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+       var firstTab = document.querySelector('.xp-tab.active');
+       if (firstTab) firstTab.click();
+    });
+</script>
+
+</body>
+</html>
