@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль Ильи - Windows 7 Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <span class="title">Мой Профиль - Илья</span>
+            <div class="title-bar-buttons">
+                <button class="minimize" aria-label="Свернуть"></button>
+                <button class="maximize" aria-label="Развернуть"></button>
+                <button class="close" aria-label="Закрыть"></button>
+            </div>
+        </div>
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('about', this)">Обо мне</button>
+            <button class="tab-button" onclick="showTab('authenticity', this)">Подлинность</button>
+        </div>
+        <div class="content-area">
+            <div id="about" class="tab-content active">
+                <h2>Обо мне</h2>
+                <img src="avatar.png" alt="Аватар Ильи" class="avatar">
+                <p><strong>Имя:</strong> Илья</p>
+                <p><strong>Возраст:</strong> 13 лет</p>
+                <p><strong>Интересы:</strong> IT, Программирование</p>
+            </div>
+            <div id="authenticity" class="tab-content">
+                <h2>Подлинность</h2>
+                <div class="icon-grid">
+                    <a href="https://www.tiktok.com/@lampasoladyami?_t=ZS-8wtbgqbdzdN&_r=1" target="_blank" class="icon-link" title="TikTok">
+                        <div class="icon tiktok">
+                            <img src="placeholder_tiktok_icon.png" alt="TikTok">
+                            <span>TikTok</span>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/@uhhtyagi" target="_blank" class="icon-link" title="YouTube">
+                        <div class="icon youtube">
+                             <img src="placeholder_youtube_icon.png" alt="YouTube">
+                            <span>YouTube</span>
+                        </div>
+                    </a>
+                    <div class="icon discord" onclick="copyToClipboard('n1k0c5ha', this)" title="Скопировать Discord ID">
+                         <img src="placeholder_discord_icon.png" alt="Discord">
+                        <span>Discord</span>
+                        <span class="copy-feedback"></span>
+                    </div>
+                    <div class="icon telegram" onclick="copyToClipboard('kirpichdaa', this)" title="Скопировать Telegram ID">
+                         <img src="placeholder_telegram_icon.png" alt="Telegram">
+                        <span>Telegram</span>
+                        <span class="copy-feedback"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="status-bar">
+            <span>Готово</span>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName, clickedButton) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            clickedButton.classList.add("active");
+        }
+
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(function() {
+                const feedback = element.querySelector('.copy-feedback');
+                if (feedback) {
+                    feedback.textContent = 'Скопировано!';
+                    element.classList.add('copied');
+                    setTimeout(() => {
+                        feedback.textContent = '';
+                        element.classList.remove('copied');
+                    }, 2000);
+                }
+                console.log('"' + text + '" скопировано в буфер обмена');
+            }, function(err) {
+                console.error('Ошибка копирования: ', err);
+                const feedback = element.querySelector('.copy-feedback');
+                if (feedback) {
+                    feedback.textContent = 'Ошибка!';
+                    element.classList.add('copy-error');
+                    setTimeout(() => {
+                        feedback.textContent = '';
+                        element.classList.remove('copy-error');
+                    }, 2000);
+                }
+            });
+        }
+
+        // Initialize first tab
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ensure the 'about' tab and its button are active by default
+            document.getElementById('about').style.display = "block";
+            document.getElementById('about').classList.add("active");
+            document.querySelector('.tab-button[onclick*="showTab(\'about\'"]').classList.add("active");
+        });
+    </script>
+</body>
+</html>
